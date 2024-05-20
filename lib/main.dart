@@ -1,11 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'firebase_options.dart';
-import 'screens/splash_screen.dart';
-import 'screens/second_screen.dart';
-import 'screens/third_screen.dart';
-import 'screens/map_screen.dart';
+import 'package:helloworldft/screens/sign_in_screen.dart';
+
 import 'app.dart';
+import 'firebase_options.dart';
+import 'screens/map_screen.dart';
+import 'screens/second_screen.dart';
+import 'screens/splash_screen.dart';
+import 'screens/third_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,18 +18,21 @@ void main() async {
 }
 
 class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _MainScreenState createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
   final List<Widget> _screens = [
-    SignInScreen(),
-    SplashScreen(),
-    SecondScreen(),
+    const SignInScreen(),
+    const SplashScreen(),
+    const SecondScreen(),
     ThirdScreen(),
-    MapScreen(),
+    const MapScreen(),
   ];
 
   void _onItemTapped(int index) {

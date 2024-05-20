@@ -1,13 +1,18 @@
-import 'dart:io';
+// ignore_for_file: library_private_types_in_public_api, unnecessary_brace_in_string_interps
+
 import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'settings_screen.dart';
+
 import '/db/database_helper.dart';
+import 'settings_screen.dart';
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -20,14 +25,14 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('HelloWorldFt for MAD'),
+        title: const Text('HelloWorldFt for MAD'),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.settings),
+            icon: const Icon(Icons.settings),
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SettingsScreen()),
+                MaterialPageRoute(builder: (context) => const SettingsScreen()),
               );
             },
           ),
@@ -37,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Welcome to the Home Screen!'),
+            const Text('Welcome to the Home Screen!'),
             Switch(
               value: _positionStreamSubscription != null,
               onChanged: (value) {
@@ -57,7 +62,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void startTracking() async {
-    final locationSettings = LocationSettings(
+    const locationSettings = LocationSettings(
       accuracy: LocationAccuracy.high, // Adjust the accuracy as needed
       distanceFilter: 10, // Distance in meters before an update is triggered
     );

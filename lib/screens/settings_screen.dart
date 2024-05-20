@@ -1,7 +1,11 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsScreen extends StatefulWidget {
+  const SettingsScreen({super.key});
+
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
 }
@@ -29,7 +33,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Settings"),
+        title: const Text("Settings"),
       ),
       body: FutureBuilder<Map<String, dynamic>>(
         future: _fetchAllPreferences(),
@@ -41,7 +45,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             return ListView(
               children: snapshot.data!.entries.map((entry) {
                 return ListTile(
-                  title: Text("${entry.key}"),
+                  title: Text(entry.key),
                   subtitle: TextField(
                     controller: controllers[entry.key],
                     decoration: InputDecoration(hintText: "Enter ${entry.key}"),
@@ -53,7 +57,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               }).toList(),
             );
           } else {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
         },
       ),

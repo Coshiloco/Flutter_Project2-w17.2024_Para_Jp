@@ -1,6 +1,7 @@
-import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
 import 'package:geolocator/geolocator.dart';
+// ignore: depend_on_referenced_packages
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
   DatabaseHelper._privateConstructor(); // Private constructor for the singleton

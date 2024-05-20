@@ -1,7 +1,11 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 class SignInScreen extends StatefulWidget {
+  const SignInScreen({super.key});
+
   @override
   _SignInScreenState createState() => _SignInScreenState();
 }
@@ -19,7 +23,6 @@ class _SignInScreenState extends State<SignInScreen> {
       );
     } catch (e) {
       // Maneja el error aquí
-      print(e);
     }
   }
 
@@ -27,59 +30,59 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Center(
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 20),
-                Text(
+                const SizedBox(height: 20),
+                const Text(
                   'Sign in',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 TextField(
                   controller: _emailController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Email',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 TextField(
                   controller: _passwordController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Password',
                     border: OutlineInputBorder(),
                   ),
                   obscureText: true,
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
                     onPressed: () {
                       // Maneja "Forgot password?" aquí
                     },
-                    child: Text('Forgot password?'),
+                    child: const Text('Forgot password?'),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: _signIn,
-                  child: Text('Sign in'),
+                  child: const Text('Sign in'),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Don't have an account?"),
+                    const Text("Don't have an account?"),
                     TextButton(
                       onPressed: () {
                         // Maneja "Register" aquí
                       },
-                      child: Text('Register'),
+                      child: const Text('Register'),
                     ),
                   ],
                 ),
