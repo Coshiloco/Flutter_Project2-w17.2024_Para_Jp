@@ -1,6 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:helloworldft/screens/sign_in_screen.dart';
 
 import 'app.dart';
 import 'firebase_options.dart';
@@ -28,7 +27,6 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
   final List<Widget> _screens = [
-    const SignInScreen(),
     const SplashScreen(),
     const SecondScreen(),
     const ThirdScreen(),
