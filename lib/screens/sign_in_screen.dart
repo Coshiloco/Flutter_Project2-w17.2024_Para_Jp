@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +14,7 @@ class _SignInScreenState extends State<SignInScreen> {
   final _auth = FirebaseAuth.instance;
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  bool isRegistering = false; // Variable para determinar si es registro
 
   Future<void> _signIn() async {
     try {
@@ -23,7 +24,30 @@ class _SignInScreenState extends State<SignInScreen> {
       );
     } catch (e) {
       // Maneja el error aquí
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to sign in: $e')),
+      );
     }
+  }
+
+  Future<void> _register() async {
+    try {
+      await _auth.createUserWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+    } catch (e) {
+      // Maneja el error aquí
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to register: $e')),
+      );
+    }
+  }
+
+  void _toggleFormMode() {
+    setState(() {
+      isRegistering = !isRegistering;
+    });
   }
 
   @override
@@ -37,9 +61,10 @@ class _SignInScreenState extends State<SignInScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 20),
-                const Text(
-                  'Sign in',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                Text(
+                  isRegistering ? 'Register' : 'Sign in',
+                  style: const TextStyle(
+                      fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 20),
                 TextField(
@@ -59,32 +84,16 @@ class _SignInScreenState extends State<SignInScreen> {
                   obscureText: true,
                 ),
                 const SizedBox(height: 20),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    onPressed: () {
-                      // Maneja "Forgot password?" aquí
-                    },
-                    child: const Text('Forgot password?'),
-                  ),
-                ),
-                const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: _signIn,
-                  child: const Text('Sign in'),
+                  onPressed: isRegistering ? _register : _signIn,
+                  child: Text(isRegistering ? 'Register' : 'Sign in'),
                 ),
                 const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text("Don't have an account?"),
-                    TextButton(
-                      onPressed: () {
-                        // Maneja "Register" aquí
-                      },
-                      child: const Text('Register'),
-                    ),
-                  ],
+                TextButton(
+                  onPressed: _toggleFormMode,
+                  child: Text(isRegistering
+                      ? 'Already have an account? Sign in'
+                      : 'Don\'t have an account? Register'),
                 ),
               ],
             ),

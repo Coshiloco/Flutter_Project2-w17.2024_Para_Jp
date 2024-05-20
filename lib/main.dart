@@ -31,7 +31,7 @@ class _MainScreenState extends State<MainScreen> {
     const SignInScreen(),
     const SplashScreen(),
     const SecondScreen(),
-    ThirdScreen(),
+    const ThirdScreen(),
     const MapScreen(),
   ];
 
