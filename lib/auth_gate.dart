@@ -1,7 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:helloworldft/screens/sign_in_screen.dart';
-
+import 'screens/sign_in_screen.dart';
 import 'main.dart';
 
 class AuthGate extends StatelessWidget {
@@ -16,9 +15,9 @@ class AuthGate extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
         if (!snapshot.hasData) {
-          return const SignInScreen(); // Pantalla de inicio de sesión
+          return const SignInScreen();
         }
-        return const MainScreen(); // Pantalla principal de la aplicación
+        return const MainScreen();
       },
     );
   }

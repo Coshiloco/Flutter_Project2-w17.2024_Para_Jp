@@ -63,8 +63,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void startTracking() async {
     const locationSettings = LocationSettings(
-      accuracy: LocationAccuracy.high, // Adjust the accuracy as needed
-      distanceFilter: 10, // Distance in meters before an update is triggered
+      accuracy: LocationAccuracy.high,
+      distanceFilter: 10,
     );
     final serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
@@ -80,20 +80,13 @@ class _SplashScreenState extends State<SplashScreen> {
     if (permission == LocationPermission.deniedForever) {
       return Future.error('Location permissions are permanently denied');
     }
-    // insert into csv file
     _positionStreamSubscription =
         Geolocator.getPositionStream(locationSettings: locationSettings).listen(
-      (Position position) {
-        writePositionToFile(position);
-      },
-    );
-    // insert into sqflite db
-    _positionStreamSubscription =
-        Geolocator.getPositionStream(locationSettings: locationSettings).listen(
-      (Position position) {
-        db.insertCoordinate(position);
-      },
-    );
+              (Position position) {
+            writePositionToFile(position);
+            db.insertCoordinate(position);
+          },
+        );
   }
 
   void stopTracking() {

@@ -4,7 +4,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-
 import '/db/database_helper.dart';
 
 class SecondScreen extends StatefulWidget {
@@ -16,7 +15,8 @@ class SecondScreen extends StatefulWidget {
 
 class _SecondScreenState extends State<SecondScreen> {
   List<List<String>> _coordinates = [];
-  List<List<String>> _dbCoordinates = []; // For coordinates from the database
+  List<List<String>> _dbCoordinates = [];
+
   @override
   void initState() {
     super.initState();
@@ -40,8 +40,8 @@ class _SecondScreenState extends State<SecondScreen> {
               child: const Text("Delete"),
               onPressed: () async {
                 await DatabaseHelper.instance.deleteCoordinate(timestamp);
-                Navigator.of(context).pop(); // Dismiss the dialog
-                _loadDbCoordinatesAndUpdate(); // Reload data and update UI
+                Navigator.of(context).pop();
+                _loadDbCoordinatesAndUpdate();
               },
             ),
           ],
@@ -50,26 +50,9 @@ class _SecondScreenState extends State<SecondScreen> {
     );
   }
 
-  void _loadDbCoordinatesAndUpdate() async {
-    List<Map<String, dynamic>> dbCoords =
-        await DatabaseHelper.instance.getCoordinates();
-    setState(() {
-      _dbCoordinates = dbCoords
-          .map((c) => [
-                c['timestamp'].toString(),
-                c['latitude'].toString(),
-                c['longitude'].toString()
-              ])
-          .toList();
-    });
-  }
-
-  void _showUpdateDialog(
-      String timestamp, String currentLat, String currentLong) {
-    TextEditingController latController =
-        TextEditingController(text: currentLat);
-    TextEditingController longController =
-        TextEditingController(text: currentLong);
+  void _showUpdateDialog(String timestamp, String currentLat, String currentLong) {
+    TextEditingController latController = TextEditingController(text: currentLat);
+    TextEditingController longController = TextEditingController(text: currentLong);
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -120,15 +103,27 @@ class _SecondScreenState extends State<SecondScreen> {
   }
 
   Future<void> _loadDbCoordinates() async {
-    List<Map<String, dynamic>> dbCoords =
-        await DatabaseHelper.instance.getCoordinates(); // Corrected
+    List<Map<String, dynamic>> dbCoords = await DatabaseHelper.instance.getCoordinates();
     setState(() {
       _dbCoordinates = dbCoords
           .map((c) => [
-                c['timestamp'].toString(), // Corrected
-                c['latitude'].toString(), // Corrected
-                c['longitude'].toString() // Corrected
-              ])
+        c['timestamp'].toString(),
+        c['latitude'].toString(),
+        c['longitude'].toString()
+      ])
+          .toList();
+    });
+  }
+
+  void _loadDbCoordinatesAndUpdate() async {
+    List<Map<String, dynamic>> dbCoords = await DatabaseHelper.instance.getCoordinates();
+    setState(() {
+      _dbCoordinates = dbCoords
+          .map((c) => [
+        c['timestamp'].toString(),
+        c['latitude'].toString(),
+        c['longitude'].toString()
+      ])
           .toList();
     });
   }
@@ -141,7 +136,6 @@ class _SecondScreenState extends State<SecondScreen> {
       ),
       body: ListView.builder(
         itemCount: _coordinates.length + _dbCoordinates.length,
-        // Combined count
         itemBuilder: (context, index) {
           if (index < _coordinates.length) {
             var coord = _coordinates[index];
@@ -158,9 +152,7 @@ class _SecondScreenState extends State<SecondScreen> {
               subtitle: Text('Latitude: ${coord[1]}, Longitude: ${coord[2]}',
                   style: const TextStyle(color: Colors.blue)),
               onTap: () => _showDeleteDialog(coord[0]),
-              // Passing timestamp to the delete dialog
-              onLongPress: () =>
-                  _showUpdateDialog(coord[0], coord[1], coord[2]),
+              onLongPress: () => _showUpdateDialog(coord[0], coord[1], coord[2]),
             );
           }
         },

@@ -1,12 +1,12 @@
-import 'package:geolocator/geolocator.dart';
+import 'package:geolocator/geolocator.dart' show Position;
 // ignore: depend_on_referenced_packages
-import 'package:path/path.dart';
+import 'package:path/path.dart' show join;
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
   DatabaseHelper._privateConstructor(); // Private constructor for the singleton
   static final DatabaseHelper instance =
-      DatabaseHelper._privateConstructor(); // Singleton instance
+  DatabaseHelper._privateConstructor(); // Singleton instance
   static Database? _database;
 
   Future<Database> get database async {

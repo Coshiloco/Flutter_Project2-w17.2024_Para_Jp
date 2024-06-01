@@ -14,7 +14,7 @@ class _SignInScreenState extends State<SignInScreen> {
   final _auth = FirebaseAuth.instance;
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  bool isRegistering = false; // Variable para determinar si es registro
+  bool isRegistering = false;
 
   Future<void> _signIn() async {
     try {
@@ -23,7 +23,6 @@ class _SignInScreenState extends State<SignInScreen> {
         password: _passwordController.text,
       );
     } catch (e) {
-      // Maneja el error aquí
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Failed to sign in: $e')),
       );
@@ -37,7 +36,6 @@ class _SignInScreenState extends State<SignInScreen> {
         password: _passwordController.text,
       );
     } catch (e) {
-      // Maneja el error aquí
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Failed to register: $e')),
       );
